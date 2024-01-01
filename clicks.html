@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>textMoving</title>
+</head>
+
+<body>
+	<h1 id="heading">Click on Me!</h1>
+
+	<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+
+	<script>
+		/*$("html").mousemove(function (e) {
+			$("#heading").offset({ left: e.pageX, top: e.pageY });
+		});*/
+
+		/*$("html").mousemove(e => {
+			$("#heading").text("X: " + e.pageX + " Y: " + e.pageY).offset({ left: e.pageX, top: e.pageY });
+		});*/
+
+		/*$("html").click(function (event) {
+			$("#heading").offset({ left: event.pageX, top: event.pageY });
+		});*/
+
+		var i = 0;
+		var j = 0;
+
+		function swimmingH1() {
+			if ((i < 200) && (j == 0)) {
+				$("h1").offset({ left: i, top: 0 });
+				i++;
+			} else if ((i == 200) && (j != 200)) {
+				$("h1").offset({ left: 200, top: j });
+				j++;
+			} else if ((i == 0) && (j <= 200)) {
+				$("h1").offset({ left: 0, top: j });
+				j--;
+			} else if ((i <= 200) && (j == 200)) {
+				$("h1").offset({ left: i, top: 200 });
+				i--;
+			//console.log(i, j);
+		}
+	}
+		var stopAnimation = setInterval(swimmingH1, 30);
+		var nClick = 0;
+		var nInterval = 30;
+		/*$("#heading").click(() => nClick++);
+		//$("#heading").click(() => clearInterval(stopAnimation));
+		$("#heading").click(function () {
+			if ((nClick % 2) == 0) {
+				stopAnimation = setInterval(swimmingH1, 30);
+			} else {
+				clearInterval(stopAnimation);
+			}
+		});*/
+		$("#heading").click(function () {
+			console.log(nClick)
+			if (nClick < 10) {
+			nClick++;
+			clearInterval(stopAnimation);
+			setInterval(swimmingH1, nInterval);
+			nInterval -= 5;
+			if (nClick == 1) {
+				$("#heading").text("Click again");
+			} else if (nClick == 10) {
+				$("#heading").text("You win");
+				for (var iInterval = 0; iInterval < 1000000; iInterval++) {
+					clearInterval(iInterval);
+				}
+			} else if (nClick > 1) {
+				$("#heading").text("Click " + (10 - nClick) + " until win");
+		}
+	}
+});
+	</script>
+</body>
+</html>
